@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  app:
+    image: node:10-alpine
+    ports:
+      - "3000"
+      - "9009"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./rootfs/workspace:/workspace
+    working_dir: /workspace/app
+    command: tail
+    tty: true
+    stdin_open: true

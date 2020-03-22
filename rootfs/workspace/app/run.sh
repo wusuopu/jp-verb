@@ -9,18 +9,22 @@ cp -v build/static/js/main.js.tpl $mainjsfile
 if [[ -z $REACT_APP_CONFIG ]]; then
   export REACT_APP_CONFIG='{}'
 fi
+echo 'replace __REACT-APP-CONFIG__'
 if [[ `uname` = 'Darwin' ]]; then
   # Mac 系统
   sed -i'' -e 's@"__REACT-APP-CONFIG__"@'"$REACT_APP_CONFIG"'@' $mainjsfile
 else
+  echo sed -i 's@"__REACT-APP-CONFIG__"@'"$REACT_APP_CONFIG"'@' $mainjsfile $mainjsfile
   sed -i 's@"__REACT-APP-CONFIG__"@'"$REACT_APP_CONFIG"'@' $mainjsfile $mainjsfile
 fi
 
 cp -v build/index.html.tpl build/index.html
+echo 'replace EXTRA_HEAD_PLACEHOLDER'
 if [[ `uname` = 'Darwin' ]]; then
   # Mac 系统
   sed -i'' -e 's@<noscript>EXTRA_HEAD_PLACEHOLDER</noscript>@'"$EXTRA_HEAD_PLACEHOLDER"'@' build/index.html
 else
+  echo sed -i 's@<noscript>EXTRA_HEAD_PLACEHOLDER</noscript>@'"$EXTRA_HEAD_PLACEHOLDER"'@' build/index.html build/index.html
   sed -i 's@<noscript>EXTRA_HEAD_PLACEHOLDER</noscript>@'"$EXTRA_HEAD_PLACEHOLDER"'@' build/index.html build/index.html
 fi
 

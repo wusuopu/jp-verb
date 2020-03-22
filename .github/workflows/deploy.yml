@@ -30,6 +30,8 @@ jobs:
         EXTRA_HEAD_PLACEHOLDER: ${{ secrets.EXTRA_HEAD_PLACEHOLDER }}
         SKIP_START_NGINX: 'true'
       run: |
+        echo $PWD
+        uname
         cd $GITHUB_WORKSPACE/rootfs/workspace/app/
         yarn
         bash build.sh
@@ -38,7 +40,7 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: $GITHUB_WORKSPACE/rootfs/workspace/app/build
+        publish_dir: ./rootfs/workspace/app/build
         publish_branch: gh-pages
         commit_message: ${{ github.event.head_commit.message }}
         deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}

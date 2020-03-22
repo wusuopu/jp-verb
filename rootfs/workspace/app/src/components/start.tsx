@@ -1,9 +1,10 @@
 import React from 'react';
-import { Flex, Box, Text } from 'rebass';
+import { Flex, Text } from 'rebass';
 import _ from 'lodash';
-import { Radio, Checkbox, Button, Col, Row, Message } from 'antd'
+import { Radio, Checkbox, Button, Col, Row } from 'antd'
 import Layout from './layout';
 import Config from './config';
+import { FormDataType } from './types'
 
 
 const FormField = (props: {label?: string, children: any}) => {
@@ -15,16 +16,12 @@ const FormField = (props: {label?: string, children: any}) => {
   )
 }
 
-type State = {
-  labels: string[];
-  conjugations: string[];
-  count: number;
-}
+export type State = FormDataType;
 type Props = {
   onSubmit?: (data: State) => Promise<any>;
 }
-export default class Start extends React.PureComponent<Props, State> {
-  state = {
+export default class Start extends React.PureComponent<Props> {
+  state: State = {
     labels: [],
     conjugations: [],
     count: 3,
@@ -88,12 +85,19 @@ export default class Start extends React.PureComponent<Props, State> {
     this.setState({labels})
   }
   handleConjugationChange = (conjugations) => {
-    this.setState({conjugations})
+    this.setState({conjugations: _.map(conjugations, v => parseInt(v, 10))})
   }
   handleCountChange = (ev) => {
     this.setState({count: ev.target.value})
   }
   handleSubmit = async () => {
-    this.props.onSubmit && await this.props.onSubmit(this.state)
+    let {labels, conjugations, count} = this.state
+    if (_.isEmpty(labels)) {
+      labels = Config.LABELS
+    }
+    if (_.isEmpty(conjugations)) {
+      conjugations = _.map(_.keys(Config.CONJUGATION_NAME), v => parseInt(v, 10))
+    }
+    this.props.onSubmit && await this.props.onSubmit({labels, conjugations, count})
   }
 }

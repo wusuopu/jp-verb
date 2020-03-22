@@ -1,7 +1,22 @@
 import _ from 'lodash';
 
-const LABELS = [ "jlpt-1", "jlpt-2", "jlpt-3", "jlpt-4", "jlpt-5" ]
+const LABELS: string[] = [ "jlpt-1", "jlpt-2", "jlpt-3", "jlpt-4", "jlpt-5" ]
 
+const CONJUGATION_ENUM = {
+  PRESENT: 0,
+  NEGATIVE: 1,
+  PAST: 2,
+  PAST_NEGATIVE: 3,
+  TE_FORM: 4,
+  TAI_FORM: 5,
+  VOLITIONAL: 6,
+  IMPERATIVE: 7,
+  PASSIVE: 8,
+  CONDITIONAL: 9,
+  PROVISIONAL_CONDITIONAL: 10,
+  CAUSATIVE: 11,
+  POTENTIAL: 12,
+}
 const CONJUGATION_NAME = {
   0: '辞書形',          // Present
   1: 'ない形',          // Negative
@@ -26,6 +41,7 @@ const CONJUGATION_KEIGO_NAME = _.assign({}, CONJUGATION_NAME,
 
 export default {
   LABELS,
+  CONJUGATION_ENUM,
   CONJUGATION_NAME,
   CONJUGATION_KEIGO_NAME,
 }

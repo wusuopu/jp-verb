@@ -3,10 +3,12 @@ import createLoadingPlugin from '@rematch/loading';
 import selectPlugin from '@rematch/select';
 import createRematchPersist from '@rematch/persist'
 import app from './app'
+import words from './words'
 
 
 const models = {
   app,
+  words,
 }
 
 if (process.env.NODE_ENV !== 'development' && typeof(window) !== 'undefined') {

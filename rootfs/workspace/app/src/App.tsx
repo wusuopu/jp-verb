@@ -11,8 +11,8 @@ import History from './lib/history';
 import Constants from './constants';
 import theme from './theme'
 
-import asyncComponent from './containers/enhancers/async-component'
-const HomePage = asyncComponent(() => import('./containers/home-page'));
+import HomePage from './containers/home-page'
+import Loading from './containers/loading'
 
 
 // 前端路由类型，默认使用 Hash 的方式
@@ -58,6 +58,7 @@ const App: React.FC = () => {
                 <Route component={NotFoundPage} />
               </Switch>
             </Router>
+            <Loading />
           </PersistGate>
         </ThemeProvider>
       </Provider>

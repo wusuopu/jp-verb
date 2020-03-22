@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { createModel } from '@rematch/core'
 import { FormDataType, Entity, WordInstanceType, ConjugationInstanceType } from '../components/types'
+import timer from '../lib/timer'
 import WordLabels from '../db/word_labels.json'
 import Labels from '../db/labels.json'
 
@@ -15,6 +16,8 @@ export default createModel({
   },
   effects: {
     async randomAsync(payload: FormDataType): Promise<Entity[]> {
+      let time1 = Date.now()
+
       let { labels, conjugations, count } = payload
       let labelIds = _.map(labels, l => Labels[l])
       let allConjugations = conjugations
@@ -62,6 +65,13 @@ export default createModel({
         data.push(entity)
         console.log(entity)
       }
+
+      let time2 = Date.now()
+      if ((time2 - time1) < 4000) {
+        // 至少等4秒
+        await timer.sleep(4000 - (time2 - time1))
+      }
+
       return data
     }
   }

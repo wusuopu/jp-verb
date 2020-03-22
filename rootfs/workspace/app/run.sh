@@ -16,6 +16,14 @@ else
   sed -i 's@"__REACT-APP-CONFIG__"@'"$REACT_APP_CONFIG"'@' $mainjsfile $mainjsfile
 fi
 
+cp -v build/index.html.tpl build/index.html
+if [[ `uname` = 'Darwin' ]]; then
+  # Mac 系统
+  sed -i'' -e 's@<noscript>EXTRA_HEAD_PLACEHOLDER</noscript>@'"$EXTRA_HEAD_PLACEHOLDER"'@' build/index.html
+else
+  sed -i 's@<noscript>EXTRA_HEAD_PLACEHOLDER</noscript>@'"$EXTRA_HEAD_PLACEHOLDER"'@' build/index.html build/index.html
+fi
+
 
 cd ../../etc/nginx/conf.d
 cp default.conf.tpl default.conf
@@ -30,5 +38,10 @@ if [[ "$router_type" != "" ]]; then
 fi
 
 
+if [[ "$SKIP_START_NGINX" = "true" ]]; then
+  # 不启动nginx
+  echo 'skip start nginx'
+  exit 0
+fi
 mkdir -p /var/tmp/nginx
 nginx -g 'daemon off;'

@@ -17,6 +17,7 @@ RUN sh build.sh
 #config
 EXPOSE 80 3000 9009
 
-ENV REACT_APP_CONFIG=""
+ENV REACT_APP_CONFIG="" \
+    EXTRA_HEAD_PLACEHOLDER=""
 
 CMD ["sh", "run.sh"]

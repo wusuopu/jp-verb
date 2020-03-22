@@ -13,6 +13,7 @@ yarn run build
 
 # 为此次build打tag
 date +"%Y%m%d-%T" > build/version.txt
+cp -v build/index.html build/index.html.tpl
 
 mainjsfile=`ls build/static/js/main.*.js`
 cp -v $mainjsfile build/static/js/main.js.tpl

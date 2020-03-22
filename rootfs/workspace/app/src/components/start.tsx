@@ -1,10 +1,11 @@
 import React from 'react';
-import { Flex, Text } from 'rebass';
+import { Flex, Text, Image } from 'rebass';
 import _ from 'lodash';
-import { Radio, Checkbox, Button, Col, Row } from 'antd'
+import { Radio, Checkbox, Button, Col, Row, Modal } from 'antd'
 import Layout from './layout';
 import Config from './config';
 import { FormDataType } from './types'
+import qrcodeImg from './images/qrcode.png'
 
 
 const FormField = (props: {label?: string, children: any}) => {
@@ -16,15 +17,16 @@ const FormField = (props: {label?: string, children: any}) => {
   )
 }
 
-export type State = FormDataType;
+export type State = FormDataType & { modalVisible: boolean; };
 type Props = {
-  onSubmit?: (data: State) => Promise<any>;
+  onSubmit?: (data: FormDataType) => Promise<any>;
 }
 export default class Start extends React.PureComponent<Props> {
   state: State = {
     labels: [],
     conjugations: [],
     count: 3,
+    modalVisible: false,
   }
 
   renderLabelChecks() {
@@ -50,6 +52,12 @@ export default class Start extends React.PureComponent<Props> {
     )
   }
 
+  hideModal = () => {
+    this.setState({modalVisible: false})
+  }
+  showModal = () => {
+    this.setState({modalVisible: true})
+  }
   render() {
     return (
       <Layout>
@@ -77,6 +85,25 @@ export default class Start extends React.PureComponent<Props> {
         <Flex my={1} flexWrap="wrap" justifyContent="center">
           <Button type="primary" onClick={this.handleSubmit}>开始</Button>
         </Flex>
+
+        <Text onClick={this.showModal} textAlign="center" mt={1}>意见反馈</Text>
+        <Modal
+          visible={this.state.modalVisible}
+          destroyOnClose closable footer={null}
+          onCancel={this.hideModal}
+          style={{
+            top: 20,
+          }}
+          bodyStyle={{
+            overflowY: 'scroll',
+            maxHeight: 400,
+          }}
+        >
+          <Flex flexDirection="column" alignItems="center">
+            <p>本站的单词数据整理自 www.japandict.com 。您有什么反馈内容可通微信与我联系。</p>
+            <Image maxWidth={[150, 150, 200, 200]} src={qrcodeImg} />
+          </Flex>
+        </Modal>
       </Layout>
     )
   }

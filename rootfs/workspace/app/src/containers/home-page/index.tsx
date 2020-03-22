@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { message } from 'antd';
-import Start, { State as StartState } from '../../components/start';
+import Start from '../../components/start';
 import Practice from '../../components/practice';
 import Result from '../../components/result';
 import { Dispatch } from '../../store'
-import { Entity, Answers } from '../../components/types'
+import { Entity, Answers, FormDataType } from '../../components/types'
 
 const mapDispatch = (dispatch: Dispatch) => ({
-  async genQuestion(data: StartState): Promise<Entity[]> {
+  async genQuestion(data: FormDataType): Promise<Entity[]> {
     let ret = await dispatch.words.randomAsync(data)
     return ret
   }
@@ -31,7 +31,7 @@ const initState: State = {
 class HomePage extends React.PureComponent<Props, State> {
   state = initState;
 
-  handleStart = async (data: StartState) => {
+  handleStart = async (data: FormDataType) => {
     try {
       console.log('start:', data)
       let entities = await this.props.genQuestion(data)

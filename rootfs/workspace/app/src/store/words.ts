@@ -67,7 +67,7 @@ export default createModel({
       }
 
       let time2 = Date.now()
-      if ((time2 - time1) < 4000) {
+      if ((time2 - time1) < 4000 && process.env.NODE_ENV !== 'development') {
         // 至少等4秒
         await timer.sleep(4000 - (time2 - time1))
       }

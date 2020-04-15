@@ -68,7 +68,7 @@ export default class Answer extends React.PureComponent<Props> {
       )
     }
 
-    const isKeigo = _.includes(conjugations, 0)
+    const isKeigo = _.includes(conjugations, 0)       // 问题包含 辞書形 ，则当前为敬体
     let conjugationName: {[key:number]: string};
     if (isKeigo) {
       conjugationName = Config.CONJUGATION_NAME
@@ -96,10 +96,10 @@ export default class Answer extends React.PureComponent<Props> {
         let reference: string;
         let result = _.get(answers[index], conjugation)
         console.log('result:', index, conjugation, result)
-        let reference1 = _.get(entity.conjugations.plain[conjugation], "text")
-        let reference2 = _.get(entity.conjugations.keigo[conjugation], "text")
+        let reference1 = _.get(entity.conjugations.plain[conjugation], "text")    // 简体情况
+        let reference2 = _.get(entity.conjugations.keigo[conjugation], "text")    // 敬体情况
         if (isKeigo && conjugation === Config.CONJUGATION_ENUM.PRESENT) {
-          reference1 = reference2 = reference = _.get(entity.conjugations.plain[conjugation], text)   // 当前显示ます形，回答辞书形
+          reference1 = reference2 = reference = _.get(entity.conjugations.plain[conjugation], "text")   // 当前显示ます形，回答辞书形
         }
         reference = reference1
         if (reference2 && reference2 !== reference1) {

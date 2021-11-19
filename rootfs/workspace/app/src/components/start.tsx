@@ -6,6 +6,8 @@ import Layout from './layout';
 import Config from './config';
 import { FormDataType } from './types'
 import qrcodeImg from './images/qrcode.png'
+import miniImg from './images/mini.jpg'
+import timer from '../lib/timer'
 
 
 const FormField = (props: {label?: string, children: any}) => {
@@ -17,8 +19,10 @@ const FormField = (props: {label?: string, children: any}) => {
   )
 }
 
-export type State = FormDataType & { modalVisible: boolean; };
+export type State = FormDataType & { modalVisible: boolean; modalVisible2: boolean };
 type Props = {
+  hideMiniModal?: boolean;
+  onHideMiniModal?: () => void;
   onSubmit?: (data: FormDataType) => Promise<any>;
 }
 export default class Start extends React.PureComponent<Props> {
@@ -27,6 +31,7 @@ export default class Start extends React.PureComponent<Props> {
     conjugations: [],
     count: 3,
     modalVisible: false,
+    modalVisible2: false,
   }
 
   renderLabelChecks() {
@@ -57,6 +62,18 @@ export default class Start extends React.PureComponent<Props> {
   }
   showModal = () => {
     this.setState({modalVisible: true})
+  }
+  handleHideMiniModal = () => {
+    this.setState({modalVisible2: false})
+    this.props.onHideMiniModal && this.props.onHideMiniModal()
+  }
+  async componentDidMount() {
+    if (this.props.hideMiniModal) {
+      return
+    }
+    // 显示小程序二维码
+    await timer.sleep(1500)
+    this.setState({modalVisible2: true})
   }
   render() {
     return (
@@ -102,6 +119,23 @@ export default class Start extends React.PureComponent<Props> {
           <Flex flexDirection="column" alignItems="center">
             <p>本站的单词数据整理自 www.japandict.com 。您有什么反馈内容可通微信与我联系。</p>
             <Image maxWidth={[150, 150, 200, 200]} src={qrcodeImg} />
+          </Flex>
+        </Modal>
+        <Modal
+          visible={this.state.modalVisible2}
+          destroyOnClose closable footer={null}
+          onCancel={this.handleHideMiniModal}
+          style={{
+            top: 20,
+          }}
+          bodyStyle={{
+            overflowY: 'scroll',
+            maxHeight: 400,
+          }}
+        >
+          <Flex flexDirection="column" alignItems="center">
+            <p>目前日本语动词变形练习的微信小程序已经上线了，欢迎大家使用。</p>
+            <Image maxWidth={[150, 150, 200, 200]} src={miniImg} />
           </Flex>
         </Modal>
       </Layout>

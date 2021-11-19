@@ -12,10 +12,16 @@ const mapDispatch = (dispatch: Dispatch) => ({
   async genQuestion(data: FormDataType): Promise<Entity[]> {
     let ret = await dispatch.words.randomAsync(data)
     return ret
-  }
+  },
+  onHideMiniModal() {
+    dispatch.app.hideMiniModal()
+  },
+})
+const mapState = (state: any) => ({
+  hideMiniModal: state.app.hideMiniModal,
 })
 
-type Props = ReturnType<typeof mapDispatch>;
+type Props = ReturnType<typeof mapState> & ReturnType<typeof mapDispatch>;
 type State = {
   page: number;
   conjugations: number[];
@@ -53,7 +59,13 @@ class HomePage extends React.PureComponent<Props, State> {
 
   render() {
     if (this.state.page === 0) {
-      return (<Start onSubmit={this.handleStart} />)
+      return (
+        <Start
+          hideMiniModal={this.props.hideMiniModal}
+          onHideMiniModal={this.props.onHideMiniModal}
+          onSubmit={this.handleStart}
+        />
+      )
     }
 
     if (this.state.page === 1) {
@@ -80,5 +92,5 @@ class HomePage extends React.PureComponent<Props, State> {
 }
 
 export default compose<Props, State>(
-  connect(null, mapDispatch)
+  connect(mapState, mapDispatch)
 )(HomePage);

@@ -53,6 +53,7 @@ type Props = {
   answers: Answers;
   goBack?: () => void;
   onAgainClick?: () => void;
+  onStartClick?: () => void;
 }
 export default class Answer extends React.PureComponent<Props> {
   state = {}
@@ -137,7 +138,10 @@ export default class Answer extends React.PureComponent<Props> {
             <Button onClick={this.props.onAgainClick}>重做一遍</Button>
           </Box>
           <Box>
-            <Button type="primary" onClick={this.props.goBack}>新的测试</Button>
+            <Button type="primary" onClick={this.props.onStartClick}>新的测试</Button>
+          </Box>
+          <Box>
+            <Button onClick={this.props.goBack}>返回首页</Button>
           </Box>
         </Flex>
       </AnswerWrap>

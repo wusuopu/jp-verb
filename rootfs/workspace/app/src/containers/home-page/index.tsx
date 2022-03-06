@@ -36,12 +36,18 @@ const initState: State = {
 }
 class HomePage extends React.PureComponent<Props, State> {
   state = initState;
+  formData: FormDataType = {
+    conjugations: [],
+    labels: [],
+    count: 3,
+  }
 
   handleStart = async (data: FormDataType) => {
     try {
       console.log('start:', data)
       let entities = await this.props.genQuestion(data)
       this.setState({page: 1, entities, conjugations: data.conjugations})
+      this.formData = data
     } catch (error) {
       console.error('fetch word', error)
       message.warn('服务器出错，请稍候再试。')
@@ -52,6 +58,9 @@ class HomePage extends React.PureComponent<Props, State> {
   }
   startPractice = () => {
     this.setState({page: 1})
+  }
+  startNewPractice = () => {
+    this.handleStart(this.formData)
   }
   reset = () => {
     this.setState(initState)
@@ -86,6 +95,7 @@ class HomePage extends React.PureComponent<Props, State> {
         answers={this.state.answers}
         goBack={this.reset}
         onAgainClick={this.startPractice}
+        onStartClick={this.startNewPractice}
       />
     )
   }

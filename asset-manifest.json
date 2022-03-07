@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "/static/js/main.507957fe.chunk.js",
-    "runtime-main.js": "/static/js/runtime-main.eced9d63.js",
+    "main.js": "/static/js/main.7b3e7fe1.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.a8e401ea.js",
     "static/js/2.3cc784a8.chunk.js": "/static/js/2.3cc784a8.chunk.js",
     "static/js/3.15a4d8bf.chunk.js": "/static/js/3.15a4d8bf.chunk.js",
-    "static/js/4.6eb4d155.chunk.js": "/static/js/4.6eb4d155.chunk.js",
+    "static/js/4.20c0632a.chunk.js": "/static/js/4.20c0632a.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.897fcef69b0af2df7469fbfcc2da1221.js": "/precache-manifest.897fcef69b0af2df7469fbfcc2da1221.js",
+    "precache-manifest.b76a4604ee5d369f8aff4a22d9cef96c.js": "/precache-manifest.b76a4604ee5d369f8aff4a22d9cef96c.js",
     "service-worker.js": "/service-worker.js",
     "static/js/2.3cc784a8.chunk.js.LICENSE.txt": "/static/js/2.3cc784a8.chunk.js.LICENSE.txt",
     "static/media/mini.jpg": "/static/media/mini.de265e25.jpg",
     "static/media/qrcode.png": "/static/media/qrcode.d8f18b9d.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.eced9d63.js",
+    "static/js/runtime-main.a8e401ea.js",
     "static/js/2.3cc784a8.chunk.js",
-    "static/js/main.507957fe.chunk.js"
+    "static/js/main.7b3e7fe1.chunk.js"
   ]
 }
